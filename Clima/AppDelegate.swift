@@ -1,3 +1,11 @@
+//
+//  AppDelegate.swift
+//  clima
+//
+//  Created by Kunapot Pairat on 1/8/2561 BE.
+//  Copyright © 2561 Kunapot Pairat. All rights reserved.
+//
+
 import UIKit
 
 @UIApplicationMain

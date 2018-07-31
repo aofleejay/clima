@@ -1,3 +1,11 @@
+//
+//  WeatherViewController.swift
+//  clima
+//
+//  Created by Kunapot Pairat on 1/8/2561 BE.
+//  Copyright © 2561 Kunapot Pairat. All rights reserved.
+//
+
 import UIKit
 import CoreLocation
 
@@ -7,11 +15,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
 
-    //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +25,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     
@@ -57,13 +64,24 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - Location Manager Delegate Methods
     /***************************************************************/
-    
-    
-    //Write the didUpdateLocations method here:
-    
-    
-    
-    //Write the didFailWithError method here:
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[locations.count - 1]
+        
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            
+            let latitude = String(location.coordinate.latitude)
+            let longitude = String(location.coordinate.longitude)
+            
+            let params: [String: String] = ["lat": latitude, "lon": longitude, "appid": APP_ID]
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+        cityLabel.text = "Location Unavailable"
+    }
     
     
     
